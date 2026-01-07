@@ -24,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listViewTodos);
         FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
 
-        todoList = new ArrayList<>();
-        todoList.add(new TodoItem("Buy milk"));
-        todoList.add(new TodoItem("Finish Android assignment"));
-        todoList.add(new TodoItem("Go for a walk"));
+//        todoList = new ArrayList<>();
+//        todoList.add(new TodoItem("Buy milk"));
+//        todoList.add(new TodoItem("Finish Android assignment"));
+//        todoList.add(new TodoItem("Go for a walk"));
+
+        todoList = TodoStorage.load(this);
 
         adapter = new TodoAdapter(this, todoList);
         listView.setAdapter(adapter);
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         if (title != null && !title.trim().isEmpty()) {
                             todoList.add(new TodoItem(title.trim()));
                             adapter.notifyDataSetChanged();
+                            TodoStorage.save(this, todoList);
                         }
                     }
                 }
